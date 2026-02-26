@@ -67,12 +67,13 @@
 
       <!-- 进度条 -->
       <div class="progress-section">
-        <span class="time-text">{{ playerStore.formatTime(playerStore.progress) }}</span>
+        <span class="time-text">{{ playerStore.formatTime(seekingProgress ?? playerStore.progress) }}</span>
         <q-slider
-          v-model="progressModel"
+          :model-value="seekingProgress ?? playerStore.progress"
           :min="0" :max="playerStore.duration || 100" :step="1"
           color="primary" track-color="grey-9" class="progress-slider"
-          @change="(val: number) => playerStore.seekTo(val)"
+          @update:model-value="onSeekDrag"
+          @change="onSeekCommit"
         />
         <span class="time-text">{{ playerStore.formatTime(playerStore.duration) }}</span>
       </div>
@@ -205,13 +206,23 @@ function toggleCurrentFav() {
   }
 }
 
+let _skipRetryCount = 0
+const MAX_SKIP_RETRY = 3
+
 async function playFromQueue(track: Track) {
   try {
     const cid = await getVideoCid(track.bvid)
     const url = await getAudioUrl(track.bvid, cid)
     await playerStore.playTrack(track, url)
+    _skipRetryCount = 0
   } catch (e: unknown) {
-    Notify.create({ type: 'negative', message: '播放失败：' + (e instanceof Error ? e.message : ''), timeout: 3000 })
+    Notify.create({ type: 'negative', message: '播放失败，跳到下一首：' + (e instanceof Error ? e.message : ''), timeout: 3000 })
+    if (_skipRetryCount < MAX_SKIP_RETRY && playerStore.playlist.length > 1) {
+      _skipRetryCount++
+      playerStore.playNext()
+    } else {
+      _skipRetryCount = 0
+    }
   }
 }
 
@@ -224,10 +235,18 @@ function clearQueue() {
   playerStore.currentTrack && (playerStore.playlist.length === 0)
 }
 
-const progressModel = computed({
-  get: () => playerStore.progress,
-  set: (val) => playerStore.seekTo(val),
-})
+const seekingProgress = ref<number | null>(null)
+
+function onSeekDrag(val: number) {
+  playerStore.isSeeking = true
+  seekingProgress.value = val
+}
+
+function onSeekCommit(val: number) {
+  playerStore.seekTo(val)
+  seekingProgress.value = null
+  playerStore.isSeeking = false
+}
 
 const volumeModel = computed({
   get: () => playerStore.volume,

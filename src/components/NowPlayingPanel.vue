@@ -27,13 +27,14 @@
 
       <!-- 进度条 -->
       <div class="np-progress">
-        <span class="np-time">{{ playerStore.formatTime(playerStore.progress) }}</span>
+        <span class="np-time">{{ playerStore.formatTime(seekingProgress ?? playerStore.progress) }}</span>
         <q-slider
-          v-model="progressModel"
+          :model-value="seekingProgress ?? playerStore.progress"
           :min="0" :max="playerStore.duration || 100" :step="1"
           color="white" track-color="rgba(255,255,255,0.2)"
           class="np-slider"
-          @change="(val: number) => playerStore.seekTo(val)"
+          @update:model-value="onSeekDrag"
+          @change="onSeekCommit"
         />
         <span class="np-time">{{ playerStore.formatTime(playerStore.duration) }}</span>
       </div>
@@ -70,7 +71,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { usePlayerStore } from '../stores/player'
 import { useFavoritesStore } from '../stores/favorites'
 import { Notify } from 'quasar'
@@ -90,10 +91,18 @@ const bgStyle = computed(() => ({
   backgroundImage: `url(${track.value?.cover})`,
 }))
 
-const progressModel = computed({
-  get: () => playerStore.progress,
-  set: (val) => playerStore.seekTo(val),
-})
+const seekingProgress = ref<number | null>(null)
+
+function onSeekDrag(val: number) {
+  playerStore.isSeeking = true
+  seekingProgress.value = val
+}
+
+function onSeekCommit(val: number) {
+  playerStore.seekTo(val)
+  seekingProgress.value = null
+  playerStore.isSeeking = false
+}
 
 const barCount = 64
 

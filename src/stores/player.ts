@@ -41,6 +41,7 @@ export const usePlayerStore = defineStore('player', () => {
   const isMuted = ref(false)
   const playMode = ref<PlayMode>('sequence')
   const isLoading = ref(false)
+  const isSeeking = ref(false)
   const showLyrics = ref(false)
   const lyrics = ref<{ time: number; text: string }[]>([])
   const currentLyricIndex = ref(-1)
@@ -76,7 +77,7 @@ export const usePlayerStore = defineStore('player', () => {
   function startProgressTimer() {
     if (progressTimer) clearInterval(progressTimer)
     progressTimer = setInterval(() => {
-      if (howl && isPlaying.value) {
+      if (howl && isPlaying.value && !isSeeking.value) {
         const seek = howl.seek() as number
         progress.value = seek
         updateLyricIndex(seek)
@@ -103,6 +104,8 @@ export const usePlayerStore = defineStore('player', () => {
     if (progressTimer) clearInterval(progressTimer)
 
     currentTrack.value = track
+    const idx = playlist.value.findIndex((t) => t.bvid === track.bvid)
+    if (idx >= 0) currentIndex.value = idx
     isLoading.value = true
     isPlaying.value = false
 
@@ -169,17 +172,30 @@ export const usePlayerStore = defineStore('player', () => {
   function playNext() {
     if (!playlist.value.length) return
     if (playMode.value === 'repeat') {
-      if (howl) { howl.seek(0); howl.play() }
+      if (howl) {
+        howl.stop()
+        howl.seek(0)
+        howl.play()
+      }
       return
     }
     if (playMode.value === 'shuffle') {
-      currentIndex.value = Math.floor(Math.random() * playlist.value.length)
+      const len = playlist.value.length
+      if (len <= 1) {
+        currentIndex.value = 0
+      } else {
+        let next = currentIndex.value
+        while (next === currentIndex.value) {
+          next = Math.floor(Math.random() * len)
+        }
+        currentIndex.value = next
+      }
     } else {
       currentIndex.value = currentIndex.value < playlist.value.length - 1
         ? currentIndex.value + 1
         : 0
     }
-    autoPlayTrigger.value++   // 通知 PlayerBar 加载新曲目
+    autoPlayTrigger.value++
   }
 
   function playPrev() {
@@ -230,6 +246,7 @@ export const usePlayerStore = defineStore('player', () => {
     isMuted,
     playMode,
     isLoading,
+    isSeeking,
     showLyrics,
     lyrics,
     currentLyricIndex,
