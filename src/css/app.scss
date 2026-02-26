@@ -1,0 +1,115 @@
+// 全局样式
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-bg: #0a0a0a;
+  --color-bg-secondary: #111111;
+  --color-bg-card: #161616;
+  --color-bg-hover: #1e1e1e;
+  --color-primary: #fb7299;
+  --color-secondary: #23ade5;
+  --color-text: #e0e0e0;
+  --color-text-muted: #888888;
+  --color-border: #2a2a2a;
+  --sidebar-width: 220px;
+  --player-height: 80px;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+// 让 Quasar 页面内容区可以独立滚动
+.q-page-container {
+  overflow-y: auto !important;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+// 文字省略
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// 渐变文字
+.gradient-text {
+  background: linear-gradient(135deg, #fb7299, #23ade5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// 玻璃拟态效果
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+// 过渡动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slide-up-enter-from,
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+// 音乐卡片通用
+.music-card {
+  background: var(--color-bg-card);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    background: var(--color-bg-hover);
+    box-shadow: 0 12px 40px rgba(251, 114, 153, 0.15);
+  }
+}
+
+// 进度条样式覆盖
+.q-slider__track-container {
+  height: 4px !important;
+}

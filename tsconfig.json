@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "lib": ["ESNext", "DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["src/*"]
+    },
+    "types": ["node"],
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*", "vite.config.ts"]
+}
