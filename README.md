@@ -77,19 +77,31 @@
 
 ## 📥 下载和使用
 
-### 下载
+### 📦 立即下载
 
-前往 [Releases](https://github.com/tgymwnet/bili-music/releases/latest) 页面下载：
+<p align="center">
+  <a href="https://github.com/tgymwnet/bili-music/releases/latest">
+    <img src="https://img.shields.io/github/v/release/tgymwnet/bili-music?style=for-the-badge&color=fb7299&label=最新版本" alt="Latest Release" />
+  </a>
+</p>
 
-| 平台 | 文件 | 说明 |
-|------|------|------|
-| Windows | `BiliMusic Setup x.x.x.exe` | 安装版（推荐） |
-| Windows | `release/win-unpacked/` | 免安装版，解压即用 |
+👉 **[点击前往 Releases 下载页面](https://github.com/tgymwnet/bili-music/releases/latest)**
+
+| 文件 | 说明 | 适用场景 |
+|------|------|----------|
+| `BiliMusic Setup 1.0.0.exe` | 安装版（推荐） | 一键安装，自动创建桌面快捷方式 |
+| `BiliMusic-1.0.0-portable.zip` | 免安装版 | 解压即用，适合 U 盘 / 无管理员权限 |
+
+### 安装说明
+
+**安装版：** 下载 `.exe` → 双击运行 → 按提示安装 → 桌面快捷方式启动
+
+**免安装版：** 下载 `.zip` → 解压到任意目录 → 双击 `BiliMusic.exe` 运行
 
 ### 系统要求
 
 - **Windows** 10 / 11（x64）
-- **Node.js** 18+ 或 20+（仅开发/编译需要）
+- **Node.js** 18+ 或 20+（仅开发/编译需要，普通用户无需安装）
 
 ---
 
