@@ -1,8 +1,5 @@
 dist/
 release/
-build/icon.ico
-build/icon.png
-electron/icon.png
 *.log
 .DS_Store
 Thumbs.db

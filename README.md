@@ -13,6 +13,12 @@
 </p>
 
 <p align="center">
+  本项目由 <a href="https://tgymw.net"><strong>TG源码网</strong></a> 原创开发，官网：<a href="https://tgymw.net">https://tgymw.net</a><br/>
+  ⛔ 本项目禁止用于任何商业用途
+</p>
+
+
+<p align="center">
   <a href="https://tgymw.net">官网</a> ·
   <a href="https://github.com/tgymwnet/bili-music/releases/latest">下载</a> ·
   <a href="https://github.com/tgymwnet/bili-music/issues">反馈</a>
@@ -36,8 +42,6 @@
 | 自定义歌单 | 关于页面 |
 |-----------|---------|
 | ![playlist](screenshots/playlist.png) | ![about](screenshots/about.png) |
-
-> 截图可在运行应用后自行截取，放入 `screenshots/` 目录
 
 ---
 
@@ -179,7 +183,7 @@ npm run gen-icon     # 生成应用图标（编译时自动执行）
 
 ### 清除所有数据
 
-#### 方法一：删除 Electron 用户数据目录（彻底清除）
+删除 Electron 用户数据目录（彻底清除）
 
 ```bash
 # Windows (PowerShell)
@@ -188,22 +192,7 @@ Remove-Item -Recurse -Force "$env:APPDATA\bilimusic"
 # macOS
 rm -rf ~/Library/Application\ Support/bilimusic
 
-# Linux
-rm -rf ~/.config/bilimusic
 ```
-
-#### 方法二：在应用内清除（仅清除 localStorage）
-
-按 `Ctrl+Shift+I` 打开开发者工具，在 Console 中执行：
-
-```javascript
-localStorage.clear()
-location.reload()
-```
-
-#### 方法三：仅退出登录
-
-在应用内点击右上角头像 → **退出登录**，仅清除 B 站登录信息，保留收藏和歌单。
 
 ---
 
