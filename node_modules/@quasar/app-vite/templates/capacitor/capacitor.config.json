@@ -1,5 +1,0 @@
-{
-  "appId": "<%= appId %>",
-  "appName": "<%= appName %>",
-  "webDir": "www"
-}
