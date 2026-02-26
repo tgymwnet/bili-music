@@ -14,8 +14,8 @@
           <div class="benefit-item">
             <q-icon name="mdi-shield-check" color="positive" size="20px" />
             <div>
-              <div class="benefit-title">避免 412 风控</div>
-              <div class="benefit-sub">登录后请求携带身份凭证，B 站风控不再拦截</div>
+              <div class="benefit-title">降低 412 风控</div>
+              <div class="benefit-sub">登录后请求携带身份凭证，大幅降低被 B 站风控拦截的概率</div>
             </div>
           </div>
           <div class="benefit-item">
@@ -23,13 +23,6 @@
             <div>
               <div class="benefit-title">完整音频质量</div>
               <div class="benefit-sub">解锁更高码率音频流，收听效果更佳</div>
-            </div>
-          </div>
-          <div class="benefit-item">
-            <q-icon name="mdi-heart" color="primary" size="20px" />
-            <div>
-              <div class="benefit-title">收藏与歌单</div>
-              <div class="benefit-sub">与 B 站账号关联，跨设备管理你的音乐</div>
             </div>
           </div>
         </div>
